@@ -1,0 +1,12 @@
+# IntelliJ IDEA settings
+.idea/
+*.iml
+
+# Maven build output
+target/
+
+# Logs
+*.log
+
+# OS-specific files
+.DS_Store
