@@ -21,11 +21,16 @@ public class User implements UserDetails{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer userId;
     private String username;
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
+
+
+    @OneToMany(mappedBy = "user")
+    private List<InventoryTransaction> inventoryTransactions;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

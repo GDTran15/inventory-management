@@ -21,4 +21,7 @@ public class Warehouse {
 
     @OneToMany(mappedBy = "warehouse")
     private List<Inventory> inventories;
+
+    @OneToMany(mappedBy = "warehouse")
+    private List<InventoryTransaction> inventoryTransactions;
 }
