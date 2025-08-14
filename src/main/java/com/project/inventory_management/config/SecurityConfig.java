@@ -25,13 +25,16 @@ public class SecurityConfig {
     private final JwtFilter jwtFilter;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(customizer -> customizer.disable())
+    public SecurityFilterChain configure(HttpSecurity http) throws Exception {
+        http.csrf(customizer -> customizer.disable())
+                .authorizeHttpRequests(request ->
+                        request.requestMatchers("register", "login")
+                                .permitAll()
+                                .anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(authorization ->
-                        authorization.requestMatchers("login").permitAll())
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
+
         return http.build();
     }
 
