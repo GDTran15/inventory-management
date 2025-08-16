@@ -1,9 +1,6 @@
 package com.project.inventory_management.controller;
 
-import com.project.inventory_management.dto.ApiResponse;
-import com.project.inventory_management.dto.CreateAccountRequestDTO;
-import com.project.inventory_management.dto.LoginDTORequest;
-import com.project.inventory_management.dto.LoginDTOResponse;
+import com.project.inventory_management.dto.*;
 import com.project.inventory_management.model.User;
 import com.project.inventory_management.service.UserService;
 import jakarta.validation.Valid;
@@ -52,6 +49,15 @@ public class UserAccessController {
        userService.deleteUser(userId);
        return ResponseEntity.ok(ApiResponse.success("Account was deleted"));
     }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping("users/{userId}")
+    public ResponseEntity<ApiResponse<User>> updateAccountInf(@PathVariable Long userId, @RequestBody UpdateAccountDTORequest updateAccountDTORequest){
+       User user = userService.updateAccount(userId, updateAccountDTORequest);
+       return ResponseEntity.ok(ApiResponse.success(user));
+    }
+
+
 
 
 }
